@@ -26,7 +26,7 @@ function renderList() {
     users.forEach(user => {
       const li = document.createElement('li');
       li.innerHTML = `
-      ${user.name} (${user.email}) <button onclick="editar(${user.id})">Editar</button> <button onclick="deletar(${user.id})">Deletar</button>
+      ${user.name} (${user.email}) <button onclick="edit(${user.id})">Editar</button> <button onclick="delete(${user.id})">Deletar</button>
       `;
       list.appendChild(li);
     })
@@ -36,4 +36,23 @@ function renderList() {
 function resetHTML() {
   document.getElementById('name').value = '';
   document.getElementById('email').value = '';
+}
+
+window.edit = (id) => {
+  const newName = prompt('Novo nome:');
+  const newEmail = prompt('Novo email:');
+
+  if (newName && newEmail) {
+    updateUser(id, newName, newEmail);
+    renderList();
+  } else {
+    alert('Preencha todos os campos.');
+  }
+}
+
+window.delete = (id) => {
+  if (confirm('Tem certeza que deseja deletar?')) {
+    deleteUser(id);
+    renderList();
+  }
 }
