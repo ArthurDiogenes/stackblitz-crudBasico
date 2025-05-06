@@ -4,5 +4,5 @@ export function getUsers() {
 }
 
 export function saveUsers(users) {
-  localStorage.getItem('users', JSON.stringify(users));
+  localStorage.setItem('users', JSON.stringify(users));
 }

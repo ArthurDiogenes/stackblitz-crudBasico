@@ -1,4 +1,4 @@
-import { createUser, listUsers, updateUser, deleteUser } from 'crud.js';
+import { createUser, listUsers, updateUser, deleteUser } from './crud.js';
 
 export function setupUI() {
   document.getElementById('btn').addEventListener('click', () => {
@@ -6,8 +6,7 @@ export function setupUI() {
     const email = document.getElementById('email').value.trim();
 
     if (!name || !email) {
-      //SUBSTITUIR ESSE ALERT POR UMA MENSAGEM DE ERRO DENTRO DA PAGINA
-      alert('Preencha todos os campos.');
+      showError('Preencha todos os campos.');
       return;
     }
 
@@ -18,27 +17,50 @@ export function setupUI() {
   renderList();
 }
 
+function showError(message) {
+  const errorDiv = document.createElement('div');
+  errorDiv.className = 'error';
+  errorDiv.textContent = message;
+  
+  document.body.insertBefore(errorDiv, document.body.firstChild);
+  
+  setTimeout(() => {
+    errorDiv.remove();
+  }, 3000);
+}
+
 function renderList() {
-  const list = document.getElementById('listUsers');
+  const list = document.getElementById('listaUsuarios');
   list.innerHTML = '';
 
   listUsers(users => {
     users.forEach(user => {
       const li = document.createElement('li');
       li.innerHTML = `
-      ${user.name} (${user.email}) <button onclick="edit(${user.id})">Editar</button> <button onclick="delete(${user.id})">Deletar</button>
+      ${user.name} (${user.email}) 
+      <button data-id="${user.id}" class="edit-btn">Editar</button> 
+      <button data-id="${user.id}" class="delete-btn">Deletar</button>
       `;
       list.appendChild(li);
-    })
-  })
+    });
+  });
+  
+  addButtonListeners();
 }
 
-function resetHTML() {
-  document.getElementById('name').value = '';
-  document.getElementById('email').value = '';
+function addButtonListeners() {
+  document.getElementById('listaUsuarios').addEventListener('click', (e) => {
+    if (e.target.classList.contains('edit-btn')) {
+      const id = parseInt(e.target.getAttribute('data-id'));
+      editUser(id);
+    } else if (e.target.classList.contains('delete-btn')) {
+      const id = parseInt(e.target.getAttribute('data-id'));
+      removeUser(id);
+    }
+  });
 }
 
-window.edit = (id) => {
+function editUser(id) {
   const newName = prompt('Novo nome:');
   const newEmail = prompt('Novo email:');
 
@@ -46,13 +68,18 @@ window.edit = (id) => {
     updateUser(id, newName, newEmail);
     renderList();
   } else {
-    alert('Preencha todos os campos.');
+    showError('Preencha todos os campos.');
   }
 }
 
-window.delete = (id) => {
+function removeUser(id) {
   if (confirm('Tem certeza que deseja deletar?')) {
     deleteUser(id);
     renderList();
   }
+}
+
+function resetHTML() {
+  document.getElementById('name').value = '';
+  document.getElementById('email').value = '';
 }
