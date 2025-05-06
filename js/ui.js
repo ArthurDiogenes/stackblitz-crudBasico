@@ -1,5 +1,4 @@
 import { createUser, listUsers, updateUser, deleteUser } from 'crud.js';
-import { getUsers, saveUsers } from 'storage.js';
 
 export function setupUI() {
   document.getElementById('btn').addEventListener('click', () => {
@@ -20,7 +19,18 @@ export function setupUI() {
 }
 
 function renderList() {
-  
+  const list = document.getElementById('listUsers');
+  list.innerHTML = '';
+
+  listUsers(users => {
+    users.forEach(user => {
+      const li = document.createElement('li');
+      li.innerHTML = `
+      ${user.name} (${user.email}) <button onclick="editar(${user.id})">Editar</button> <button onclick="deletar(${user.id})">Deletar</button>
+      `;
+      list.appendChild(li);
+    })
+  })
 }
 
 function resetHTML() {
