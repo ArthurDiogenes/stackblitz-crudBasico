@@ -1,7 +1,5 @@
-/* Simple Dark Theme CSS with subtle animations */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
-/* Base Variables */
 :root {
   --bg-color: #121212;
   --card-bg: #1e1e1e;
@@ -21,7 +19,6 @@
   --shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Reset & Base Styles */
 * {
   margin: 0;
   padding: 0;
@@ -40,7 +37,6 @@ body {
   position: relative;
 }
 
-/* Main Container */
 body > div {
   background-color: var(--card-bg);
   border-radius: var(--radius);
@@ -51,7 +47,6 @@ body > div {
   border: 1px solid var(--border-color);
 }
 
-/* Form Elements */
 input {
   width: 100%;
   background-color: var(--input-bg);
@@ -74,7 +69,6 @@ input::placeholder {
   color: var(--text-secondary);
 }
 
-/* Main Button */
 #btn {
   width: 100%;
   background-color: var(--accent);
@@ -98,7 +92,6 @@ input::placeholder {
   transform: translateY(0);
 }
 
-/* User List */
 #listaUsuarios {
   list-style: none;
   border-top: 1px solid var(--border-color);
@@ -121,11 +114,10 @@ input::placeholder {
   transform: translateY(-2px);
 }
 
-/* Fixed layout for user items */
 .user-info {
   display: block;
   padding: 15px;
-  padding-right: 170px; /* Space for buttons */
+  padding-right: 170px;
 }
 
 .user-name {
@@ -141,7 +133,6 @@ input::placeholder {
   display: block;
 }
 
-/* Empty state specific styling */
 #listaUsuarios li.empty-state {
   background-color: transparent;
   border: 1px dashed var(--border-color);
@@ -156,7 +147,6 @@ input::placeholder {
   border-color: var(--border-color);
 }
 
-/* Action Buttons - Fixed positioning */
 .actions {
   position: absolute;
   right: 15px;
@@ -200,7 +190,6 @@ input::placeholder {
   border-color: var(--delete-color);
 }
 
-/* New Item Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -216,7 +205,6 @@ input::placeholder {
   animation: fadeIn 0.3s ease forwards;
 }
 
-/* Notification Toast */
 .toast {
   position: fixed;
   bottom: 20px;
@@ -245,7 +233,6 @@ input::placeholder {
   border-left: 4px solid var(--delete-color);
 }
 
-/* Error Message */
 .error {
   background-color: rgba(239, 68, 68, 0.2);
   border: 1px solid var(--error-color);
@@ -264,7 +251,6 @@ input::placeholder {
   width: auto;
 }
 
-/* Responsive Design */
 @media (max-width: 600px) {
   body > div {
     padding: 20px;
@@ -276,7 +262,7 @@ input::placeholder {
   }
   
   #listaUsuarios li {
-    padding-bottom: 50px; /* Space for buttons below */
+    padding-bottom: 50px;
   }
   
   .actions {
